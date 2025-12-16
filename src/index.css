@@ -1,0 +1,7 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #141414; /* Ant Design Dark Theme Default Background */
+  color: rgba(255, 255, 255, 0.85); /* Ant Design Dark Text Color */
+}
