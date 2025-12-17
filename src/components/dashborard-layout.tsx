@@ -14,7 +14,7 @@ export default function DashborardLayout() {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <SideBar collapsed={collapsed} onCollapse={setCollapsed} />
-      <Layout style={{ marginLeft: 220 }}>
+      <Layout style={{ marginLeft: collapsed ? 80 : 220, transition: 'all 0.2s' }}>
         <Header />
         <Layout.Content className={styles.content}>
           <div

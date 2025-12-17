@@ -41,12 +41,8 @@ export default function Header() {
 
   return (
     <AntHeader className={styles.header} style={{ background: colorBgContainer }}>
-      {/* 左侧：折叠按钮 */}
-      {/* <Button
-        type="text"
-        className={styles.headerLeft}
-      /> */}
-      <div></div>
+      {/* 左侧：占位或面包屑 */}
+      <div className={styles.headerLeft}></div>
 
       {/* 右侧：功能按钮区 */}
       <Space size="middle">

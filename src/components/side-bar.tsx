@@ -1,7 +1,7 @@
 import { Layout, Menu } from 'antd';
 import { FileOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { DashboardOutlined } from '@ant-design/icons';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './index.module.less';
 
@@ -19,7 +19,7 @@ const menuItems = [
     icon: <DashboardOutlined />,
   },
   {
-    key: '/posts',
+    key: '/moderate',
     label: '动态内容管理',
     icon: <FileOutlined />,
   },
@@ -62,28 +62,29 @@ export default function SideBar({ collapsed, onCollapse }: SideBarProps) {
 
   return (
     <Sider
-      trigger={null} // 隐藏默认的底部触发器
       collapsible
       collapsed={collapsed}
       width={220}
+      collapsedWidth={80}
+      breakpoint="lg"
+      onCollapse={onCollapse}
       className={styles.sidebar}
     >
-      {/* A. Logo 区域 */}
-      <div className={styles.logo}>{collapsed ? 'Logo' : 'ADMIN'}</div>
+      <div className={styles.sidebarContent}>
+        {/* A. Logo 区域 */}
+        <div className={styles.logo}>{collapsed ? 'Logo' : 'ADMIN'}</div>
 
-      {/* B. 菜单组件 */}
-      <Menu
-        theme="dark" // 主题：dark 或 light
-        mode="inline" // 模式：侧边栏必须用 inline
-        // 核心数据源
-        items={menuItems}
-        // 核心交互：点击跳转
-        onClick={handleMenuClick}
-        // 核心交互：自动高亮
-        selectedKeys={selectedKeys}
-        // 初始展开的子菜单
-        defaultOpenKeys={defaultOpenKeys}
-      />
+        {/* B. 菜单组件 */}
+        <Menu
+          theme="dark"
+          mode="inline"
+          items={menuItems}
+          onClick={handleMenuClick}
+          selectedKeys={selectedKeys}
+          defaultOpenKeys={defaultOpenKeys}
+          style={{ border: 'none' }}
+        />
+      </div>
     </Sider>
   );
 }
