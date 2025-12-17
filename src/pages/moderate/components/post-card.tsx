@@ -4,7 +4,7 @@ import type { Post } from '../types';
 import styles from './index.module.less';
 
 import { useCallback } from 'react';
-import { getCssVars } from '../../../utils/theme-utils';
+import { getCssVars } from '@/utils/theme-utils';
 
 export interface PostCardProps {
   post: Post;

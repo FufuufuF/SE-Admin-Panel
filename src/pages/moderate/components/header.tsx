@@ -1,7 +1,7 @@
 import { Input, Select, Form, theme } from 'antd';
 import { SearchOutlined, UserOutlined } from '@ant-design/icons';
 import styles from './index.module.less';
-import { getCssVars } from '../../../utils/theme-utils';
+import { getCssVars } from '@/utils/theme-utils';
 
 interface FilterValues {
   keyword: string;

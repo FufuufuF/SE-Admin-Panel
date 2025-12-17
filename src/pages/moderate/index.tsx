@@ -4,7 +4,7 @@ import ModerateHeader from './components/header';
 import { useEffect } from 'react';
 import styles from './index.module.less';
 import { theme } from 'antd';
-import { getCssVars } from '../../utils/theme-utils';
+import { getCssVars } from '@/utils/theme-utils';
 
 export default function Moderate() {
   const { posts, fetchPosts } = usePost();
