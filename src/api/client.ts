@@ -28,16 +28,16 @@ export class ApiClient {
         // 业务逻辑错误
         this.notificationApi?.error({
           message: '请求错误',
-          description: response.data.message || '未知错误',
+          description: response.data.msg || '未知错误',
         });
-        return Promise.reject(response.data.message);
+        return Promise.reject(response.data.msg);
       }
     };
 
     const handleError = (error: AxiosError) => {
       // 网络/系统级错误
       const status = error.response?.status;
-      const remoteMessage = (error.response?.data as { message?: string })?.message;
+      const remoteMessage = (error.response?.data as { msg?: string })?.msg;
 
       const displayMessage = status ? `请求失败 (${status})` : '网络异常';
       const displayDescription = remoteMessage || error.message || '未知错误';
