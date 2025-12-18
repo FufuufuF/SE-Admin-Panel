@@ -16,5 +16,6 @@ export interface Post {
     scoreCount: number;
   };
   createdAt: string;
-  status?: 'pending' | 'passed' | 'failed';
+  status?: 'pending' | 'normal' | 'hidden' | 'deleted';
+  visibility?: 'public' | 'private';
 }

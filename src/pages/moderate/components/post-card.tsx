@@ -37,14 +37,14 @@ export default function PostCard({ post }: PostCardProps) {
     const status = post.status || 'pending'; // Default to pending if not set
 
     switch (status) {
-      case 'passed':
+      case 'normal':
         return (
           <div className={`${styles.statusBadge} ${styles.passed}`}>
             <CheckCircleOutlined style={{ marginRight: 4 }} />
             已通过
           </div>
         );
-      case 'failed':
+      case 'hidden':
         return (
           <div className={`${styles.statusBadge} ${styles.failed}`}>
             <CloseCircleOutlined style={{ marginRight: 4 }} />
