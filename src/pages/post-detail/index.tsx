@@ -1,7 +1,18 @@
-import { useParams, useNavigate } from "react-router-dom";
-import { usePost } from "@/hooks";
-import { useMemo, useCallback } from "react";
-import { Avatar, Image, Button, Descriptions, Tag, Space, theme, Empty, Card, Statistic } from 'antd';
+import { useParams, useNavigate } from 'react-router-dom';
+import { usePost, useModerate } from '@/hooks';
+import { useMemo, useCallback } from 'react';
+import {
+  Avatar,
+  Image,
+  Button,
+  Descriptions,
+  Tag,
+  Space,
+  theme,
+  Empty,
+  Card,
+  Statistic,
+} from 'antd';
 import {
   ArrowLeftOutlined,
   CheckCircleOutlined,
@@ -20,6 +31,7 @@ export default function PostDetail() {
   const navigate = useNavigate();
   const { getPostById } = usePost();
   const { token } = theme.useToken();
+  const { moderatePost } = useModerate();
 
   const post = useMemo(() => {
     return getPostById(Number(id));
@@ -33,12 +45,12 @@ export default function PostDetail() {
 
   const handlePass = useCallback(() => {
     console.log('pass', post?.id);
-    // TODO: 调用审核通过API
+    moderatePost(post!.id, 'normal');
   }, [post?.id]);
 
   const handleReject = useCallback(() => {
     console.log('reject', post?.id);
-    // TODO: 调用审核拒绝API
+    moderatePost(post!.id, 'hidden');
   }, [post?.id]);
 
   const renderStatus = () => {
@@ -71,9 +83,9 @@ export default function PostDetail() {
     return (
       <div className={styles.container} style={cssVars}>
         <div className={styles.header}>
-          <Button 
-            type="text" 
-            icon={<ArrowLeftOutlined />} 
+          <Button
+            type="text"
+            icon={<ArrowLeftOutlined />}
             onClick={handleBack}
             className={styles.backBtn}
           >
@@ -93,9 +105,9 @@ export default function PostDetail() {
   return (
     <div className={styles.container} style={cssVars}>
       <div className={styles.header}>
-        <Button 
-          type="text" 
-          icon={<ArrowLeftOutlined />} 
+        <Button
+          type="text"
+          icon={<ArrowLeftOutlined />}
           onClick={handleBack}
           className={styles.backBtn}
         >
@@ -107,10 +119,7 @@ export default function PostDetail() {
       <div className={styles.content}>
         {/* 用户信息区域 */}
         <div className={styles.userSection}>
-          <Avatar 
-            size={64} 
-            style={{ backgroundColor: token.colorPrimary }}
-          >
+          <Avatar size={64} style={{ backgroundColor: token.colorPrimary }}>
             {post.user.nickname[0]?.toUpperCase()}
           </Avatar>
           <div className={styles.userInfo}>
@@ -119,9 +128,7 @@ export default function PostDetail() {
               <UserOutlined /> @{post.user.id}
             </div>
           </div>
-          <div className={styles.statusWrapper}>
-            {renderStatus()}
-          </div>
+          <div className={styles.statusWrapper}>{renderStatus()}</div>
         </div>
 
         {/* 帖子内容 */}
@@ -135,17 +142,9 @@ export default function PostDetail() {
                 {post.media.map((media, index) => (
                   <div key={index} className={styles.mediaWrapper}>
                     {media.type === 'image' ? (
-                      <Image
-                        src={media.url}
-                        alt={`media-${index}`}
-                        className={styles.mediaImage}
-                      />
+                      <Image src={media.url} alt={`media-${index}`} className={styles.mediaImage} />
                     ) : (
-                      <video 
-                        src={media.url} 
-                        controls 
-                        className={styles.mediaVideo}
-                      />
+                      <video src={media.url} controls className={styles.mediaVideo} />
                     )}
                   </div>
                 ))}
@@ -178,10 +177,7 @@ export default function PostDetail() {
                 precision={1}
                 prefix={<StarOutlined />}
               />
-              <Statistic
-                title="评分人数"
-                value={post.stats.scoreCount}
-              />
+              <Statistic title="评分人数" value={post.stats.scoreCount} />
             </Space>
           </div>
         </Card>
@@ -189,17 +185,17 @@ export default function PostDetail() {
         {/* 详细信息 */}
         <Card title="详细信息" className={styles.detailCard}>
           <Descriptions column={1}>
-            <Descriptions.Item 
-              label={<span><CalendarOutlined /> 发布时间</span>}
+            <Descriptions.Item
+              label={
+                <span>
+                  <CalendarOutlined /> 发布时间
+                </span>
+              }
             >
               {new Date(post.createdAt).toLocaleString('zh-CN')}
             </Descriptions.Item>
-            <Descriptions.Item label="帖子ID">
-              {post.id}
-            </Descriptions.Item>
-            <Descriptions.Item label="用户ID">
-              {post.user.id}
-            </Descriptions.Item>
+            <Descriptions.Item label="帖子ID">{post.id}</Descriptions.Item>
+            <Descriptions.Item label="用户ID">{post.user.id}</Descriptions.Item>
             <Descriptions.Item label="可见性">
               {post.visibility === 'public' ? (
                 <Tag color="green">公开</Tag>
@@ -207,9 +203,7 @@ export default function PostDetail() {
                 <Tag color="orange">私密</Tag>
               )}
             </Descriptions.Item>
-            <Descriptions.Item label="媒体数量">
-              {mediaCount} 个
-            </Descriptions.Item>
+            <Descriptions.Item label="媒体数量">{mediaCount} 个</Descriptions.Item>
           </Descriptions>
         </Card>
 

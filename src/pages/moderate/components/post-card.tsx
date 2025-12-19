@@ -4,23 +4,26 @@ import type { Post } from '@/types';
 import styles from './index.module.less';
 import { getCssVars } from '@/utils/theme-utils';
 
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useModerate } from '@/hooks';
 
 export interface PostCardProps {
   post: Post;
 }
 
-export default function PostCard({ post }: PostCardProps) {
+export default React.memo(function PostCard({ post }: PostCardProps) {
   const { token } = theme.useToken();
   const navigate = useNavigate();
+  const { moderatePost, loading } = useModerate();
+
   const handlePass = useCallback(() => {
-    console.log('pass', post.id);
-  }, [post.id]);
+    moderatePost(post.id, 'normal');
+  }, [moderatePost, post.id]);
 
   const handleFail = useCallback(() => {
-    console.log('fail', post.id);
-  }, [post.id]);
+    moderatePost(post.id, 'hidden');
+  }, [moderatePost, post.id]);
 
   const handleCardClick = useCallback(() => {
     navigate(`/moderate/${post.id}`);
@@ -126,6 +129,7 @@ export default function PostCard({ post }: PostCardProps) {
         <div className={styles.auditActions}>
           <Button
             danger
+            loading={loading}
             icon={<CloseCircleOutlined />}
             className={styles.auditBtn}
             onClick={(e) => {
@@ -137,6 +141,7 @@ export default function PostCard({ post }: PostCardProps) {
           </Button>
           <Button
             type="primary"
+            loading={loading}
             icon={<CheckCircleOutlined />}
             className={styles.auditBtn}
             onClick={(e) => {
@@ -150,4 +155,4 @@ export default function PostCard({ post }: PostCardProps) {
       </div>
     </div>
   );
-}
+});
