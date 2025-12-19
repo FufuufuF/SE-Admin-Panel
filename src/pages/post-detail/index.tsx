@@ -31,7 +31,7 @@ export default function PostDetail() {
   const navigate = useNavigate();
   const { getPostById } = usePost();
   const { token } = theme.useToken();
-  const { moderatePost } = useModerate();
+  const { loading, moderatePost } = useModerate();
 
   const post = useMemo(() => {
     return getPostById(Number(id));
@@ -214,6 +214,7 @@ export default function PostDetail() {
             danger
             icon={<CloseCircleOutlined />}
             onClick={handleReject}
+            loading={loading}
             className={styles.rejectBtn}
           >
             审核不通过
@@ -223,6 +224,7 @@ export default function PostDetail() {
             type="primary"
             icon={<CheckCircleOutlined />}
             onClick={handlePass}
+            loading={loading}
             className={styles.passBtn}
           >
             审核通过
