@@ -1,4 +1,4 @@
-import type { ApiResponse } from '@/api/types';
+import type { ApiResponse } from '@/api/core/types';
 import type { Post } from '@/types';
 
 export interface PostRequest {
