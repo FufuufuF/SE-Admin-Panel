@@ -1,10 +1,11 @@
 import { Avatar, Image, theme, Button } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined, ClockCircleOutlined } from '@ant-design/icons';
-import type { Post } from '../types';
+import type { Post } from '@/types';
 import styles from './index.module.less';
+import { getCssVars } from '@/utils/theme-utils';
 
 import { useCallback } from 'react';
-import { getCssVars } from '@/utils/theme-utils';
+import { useNavigate } from 'react-router-dom';
 
 export interface PostCardProps {
   post: Post;
@@ -12,7 +13,7 @@ export interface PostCardProps {
 
 export default function PostCard({ post }: PostCardProps) {
   const { token } = theme.useToken();
-
+  const navigate = useNavigate();
   const handlePass = useCallback(() => {
     console.log('pass', post.id);
   }, [post.id]);
@@ -20,6 +21,10 @@ export default function PostCard({ post }: PostCardProps) {
   const handleFail = useCallback(() => {
     console.log('fail', post.id);
   }, [post.id]);
+
+  const handleCardClick = useCallback(() => {
+    navigate(`/moderate/${post.id}`);
+  }, [navigate, post.id]);
 
   // 使用公共工具函数获取 CSS 变量
   // 如果该组件需要特定的额外变量，可以在此扩展
@@ -63,7 +68,7 @@ export default function PostCard({ post }: PostCardProps) {
   };
 
   return (
-    <div className={styles.card} style={cssVars}>
+    <div className={styles.card} style={cssVars} onClick={handleCardClick}>
       <div className={styles.avatarCol}>
         <Avatar style={{ backgroundColor: token.colorPrimary, verticalAlign: 'middle' }} size={40}>
           {post.user.nickname[0]?.toUpperCase()}

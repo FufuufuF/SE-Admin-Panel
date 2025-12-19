@@ -1,5 +1,5 @@
 import type { ApiResponse } from '@/api/types';
-import type { Post } from './types';
+import type { Post } from '@/types';
 
 export interface PostRequest {
   page?: number;

@@ -19,3 +19,4 @@ export interface Post {
   status?: 'pending' | 'normal' | 'hidden' | 'deleted';
   visibility?: 'public' | 'private';
 }
+

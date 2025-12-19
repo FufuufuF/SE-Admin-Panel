@@ -1,9 +1,9 @@
-import { usePostStore } from '../store/post-store';
-import { fetchPosts as fetchPostsApi } from '../api';
+import { usePostStore } from '@/store';
+import { fetchPosts as fetchPostsApi } from '@/pages/moderate/api';
 
 import { useCallback } from 'react';
 
-export default function usePost() {
+export function usePost() {
   const { posts, setPosts } = usePostStore();
 
   const fetchPosts = useCallback(async () => {
@@ -15,8 +15,14 @@ export default function usePost() {
     }
   }, [setPosts]);
 
+  const getPostById = useCallback((id: number) => {
+    return posts.find((p) => p.id === id);
+  }, [posts]);
+
   return {
     posts,
     fetchPosts,
+    getPostById,
   };
 }
+

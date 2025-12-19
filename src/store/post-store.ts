@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { type Post } from '../types';
+import { type Post } from '@/types';
 
 interface PostState {
   posts: Post[];
@@ -13,3 +13,4 @@ export const usePostStore = create<PostState>((set) => {
     setPosts: (posts) => set({ posts }),
   };
 });
+

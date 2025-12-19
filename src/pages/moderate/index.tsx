@@ -1,4 +1,4 @@
-import usePost from './hooks/use-post';
+import { usePost } from '@/hooks';
 import PostCard from './components/post-card';
 import ModerateHeader from './components/header';
 import { useEffect } from 'react';
