@@ -13,4 +13,3 @@ export const usePostStore = create<PostState>((set) => {
     setPosts: (posts) => set({ posts }),
   };
 });
-
