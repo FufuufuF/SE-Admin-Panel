@@ -15,12 +15,16 @@ export const moderatePost = (request: {
   request: ModerateRequest;
 }): Promise<ModerateResponse> => {
   if (IS_MOCK) {
-    setTimeout(() => {
-      return Promise.resolve({ update: true });
-    }, 1000);
+    return new Promise<ModerateResponse>((resolve) => {
+      setTimeout(() => {
+        resolve({ update: true } as ModerateResponse);
+      }, 1000);
+    });
+  } else {
+    return Promise.resolve({ update: true } as ModerateResponse);
   }
-  return apiClient.post<ModerateResponse, ModerateRequest>(
-    `admin/v1/posts/${request.postId}/status`,
-    request.request
-  );
+  //   return apiClient.post<ModerateResponse, ModerateRequest>(
+  //     `admin/v1/posts/${request.postId}/status`,
+  //     request.request
+  //   );
 };
