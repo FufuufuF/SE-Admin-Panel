@@ -59,6 +59,14 @@ export class ApiClient {
     };
 
     this.axios.interceptors.response.use(handleSuccess, handleError);
+
+    this.axios.interceptors.request.use((config) => {
+      const token = localStorage.getItem('access_token');
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    });
   }
 
   // 提供给外部注入 notification 实例的方法
