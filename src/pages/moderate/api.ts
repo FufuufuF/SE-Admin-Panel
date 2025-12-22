@@ -1,4 +1,5 @@
 import type { ApiResponse } from '@/api/core/types';
+import { apiClient } from '@/api/core';
 import type { Post } from '@/types';
 
 export interface PostRequest {
@@ -122,16 +123,5 @@ const mockPosts: Post[] = [
 ];
 
 export const fetchPosts = (): Promise<ApiResponse<PostResponse>> => {
-  return new Promise<ApiResponse<PostResponse>>((resolve) => {
-    setTimeout(() => {
-      resolve({
-        code: 0,
-        msg: 'success',
-        data: {
-          total: 10,
-          list: mockPosts,
-        },
-      });
-    }, 1000);
-  });
+  return apiClient.get('/admin/v1/posts');
 };
