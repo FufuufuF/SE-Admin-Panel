@@ -1,5 +1,5 @@
 import { apiClient } from '@/api/core';
-import type { CommentData } from './components/types';
+import type { CommentData } from './components/comment/types';
 import type { ApiResponse } from '@/api/core/types';
 import type { ModerateCommentResponse } from '@/api/moderate';
 

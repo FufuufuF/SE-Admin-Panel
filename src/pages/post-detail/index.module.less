@@ -5,8 +5,21 @@
   border-right: 1px solid var(--border-color);
   min-height: 100vh;
   background-color: var(--bg-color);
+  color: #ffffff;
 }
 
+.content {
+  padding: 16px;
+}
+
+.emptyContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+// PostHeader 样式 (内联)
 .header {
   position: sticky;
   top: 0;
@@ -22,7 +35,7 @@
 }
 
 .backBtn {
-  color: var(--text-color);
+  color: #ffffff;
   font-weight: 500;
 
   &:hover {
@@ -33,197 +46,9 @@
 .title {
   font-weight: 700;
   font-size: 20px;
-  color: var(--text-color);
+  color: #ffffff;
   margin: 0;
   flex: 1;
-}
-
-.content {
-  padding: 16px;
-}
-
-.emptyContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 400px;
-}
-
-/* 用户信息区域 */
-.userSection {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 24px;
-  background-color: var(--bg-color);
-  border-radius: 12px;
-  border: 1px solid var(--border-color);
-  margin-bottom: 16px;
-}
-
-.userInfo {
-  flex: 1;
-}
-
-.nickname {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--text-color);
-  margin-bottom: 4px;
-}
-
-.userId {
-  font-size: 14px;
-  color: var(--text-secondary-color);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.statusWrapper {
-  margin-left: auto;
-}
-
-/* 帖子内容卡片 */
-.postCard {
-  margin-bottom: 16px;
-  border-radius: 12px;
-  border: 1px solid var(--border-color);
-  background-color: var(--bg-color);
-
-  :global {
-    .ant-card-body {
-      padding: 24px;
-    }
-  }
-}
-
-.postText {
-  font-size: 16px;
-  line-height: 24px;
-  color: var(--text-color);
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  margin-bottom: 16px;
-}
-
-/* 媒体内容 */
-.mediaSection {
-  margin: 24px 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 12px;
-}
-
-.mediaWrapper {
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid var(--border-color);
-  background-color: #000;
-}
-
-.mediaImage {
-  width: 100%;
-  height: auto;
-  display: block;
-  max-height: 600px;
-  object-fit: contain;
-}
-
-.mediaVideo {
-  width: 100%;
-  height: auto;
-  display: block;
-  max-height: 600px;
-}
-
-/* 标签区域 */
-.tagsSection {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 16px 0;
-  padding-top: 16px;
-  border-top: 1px solid var(--border-color);
-}
-
-/* 统计信息 */
-.statsSection {
-  margin-top: 24px;
-  padding-top: 24px;
-  border-top: 1px solid var(--border-color);
-
-  :global {
-    .ant-statistic-title {
-      color: var(--text-secondary-color);
-    }
-
-    .ant-statistic-content {
-      color: var(--text-color);
-    }
-  }
-}
-
-/* 详细信息卡片 */
-.detailCard {
-  margin-bottom: 16px;
-  border-radius: 12px;
-  border: 1px solid var(--border-color);
-  background-color: var(--bg-color);
-
-  :global {
-    .ant-card-head {
-      border-bottom: 1px solid var(--border-color);
-      color: var(--text-color);
-    }
-
-    .ant-descriptions-item-label {
-      color: var(--text-secondary-color);
-      font-weight: 500;
-    }
-
-    .ant-descriptions-item-content {
-      color: var(--text-color);
-    }
-  }
-}
-
-/* 操作区域 */
-.actionSection {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  padding: 24px;
-  background-color: var(--bg-color);
-  border-radius: 12px;
-  border: 1px solid var(--border-color);
-  margin-bottom: 24px;
-  position: sticky;
-  bottom: 16px;
-  backdrop-filter: blur(12px);
-}
-
-.rejectBtn,
-.passBtn {
-  min-width: 180px;
-  height: 48px;
-  font-size: 16px;
-  font-weight: 500;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.rejectBtn {
-  flex: 1;
-  max-width: 300px;
-}
-
-.passBtn {
-  flex: 1;
-  max-width: 300px;
 }
 
 /* 响应式设计 */
@@ -236,36 +61,4 @@
   .content {
     padding: 12px;
   }
-
-  .userSection {
-    padding: 16px;
-  }
-
-  .mediaSection {
-    grid-template-columns: 1fr;
-  }
-
-  .actionSection {
-    flex-direction: column;
-    padding: 16px;
-  }
-
-  .rejectBtn,
-  .passBtn {
-    max-width: 100%;
-  }
-
-  .statsSection {
-    :global {
-      .ant-space {
-        flex-direction: column;
-        width: 100%;
-
-        .ant-space-item {
-          width: 100%;
-        }
-      }
-    }
-  }
 }
-

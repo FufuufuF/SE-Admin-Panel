@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import type { CommentItem, StatusCounts } from '../components/types';
+import type { CommentItem, StatusCounts } from '../components/comment/types';
 
 export interface CommentStore {
   total: number;

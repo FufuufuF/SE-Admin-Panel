@@ -9,7 +9,7 @@ import {
   MessageOutlined,
 } from '@ant-design/icons';
 
-import styles from './comment.module.less';
+import styles from './index.module.less';
 import type { CommentItem, StatusCounts } from './types';
 
 export interface CommentProps {
@@ -83,7 +83,7 @@ export const Comment = React.memo(function Comment({ total, list, statusCounts }
           </div>
           <div className={styles.statItem}>
             <span className={styles.label}>删除</span>
-            <span className={styles.value} style={{ color: '#00000040' }}>
+            <span className={styles.value} style={{ color: 'rgba(255, 255, 255, 0.45)' }}>
               {statusCounts.deleted || 0}
             </span>
           </div>
@@ -116,7 +116,7 @@ export const Comment = React.memo(function Comment({ total, list, statusCounts }
               </div>
               <div className={styles.content}>{item.content}</div>
               <div className={styles.footer}>
-                <span style={{ color: '#999', fontSize: '12px' }}>ID: {item.id}</span>
+                <span style={{ color: '#ccc', fontSize: '12px' }}>ID: {item.id}</span>
               </div>
             </List.Item>
           )}

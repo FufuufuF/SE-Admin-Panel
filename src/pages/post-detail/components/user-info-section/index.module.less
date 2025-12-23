@@ -1,0 +1,39 @@
+.userSection {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  background-color: var(--bg-color);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 16px;
+}
+
+.userInfo {
+  flex: 1;
+}
+
+.nickname {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.userId {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.45);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.statusWrapper {
+  margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .userSection {
+    padding: 16px;
+  }
+}
