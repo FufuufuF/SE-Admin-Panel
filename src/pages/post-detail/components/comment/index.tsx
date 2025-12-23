@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Avatar, Tag, Card, Empty, Space } from 'antd';
+import { List, Avatar, Tag, Card, Empty, Space, Button, Dropdown } from 'antd';
 import {
   UserOutlined,
   CheckCircleOutlined,
@@ -7,7 +7,10 @@ import {
   CloseCircleOutlined,
   DeleteOutlined,
   MessageOutlined,
+  SafetyCertificateOutlined,
+  DownOutlined,
 } from '@ant-design/icons';
+import type { MenuProps } from 'antd';
 
 import styles from './index.module.less';
 import type { CommentItem, StatusCounts } from './types';
@@ -16,9 +19,15 @@ export interface CommentProps {
   total: number;
   list: CommentItem[];
   statusCounts: StatusCounts;
+  onModerate: (commentId: number, status: string) => void;
 }
 
-export const Comment = React.memo(function Comment({ total, list, statusCounts }: CommentProps) {
+export const Comment = React.memo(function Comment({
+  total,
+  list,
+  statusCounts,
+  onModerate,
+}: CommentProps) {
   if (!list || total === 0) {
     return <Empty description="暂无评论数据" />;
   }
@@ -53,6 +62,29 @@ export const Comment = React.memo(function Comment({ total, list, statusCounts }
         return <Tag>{status}</Tag>;
     }
   };
+
+  const statusItems: MenuProps['items'] = [
+    {
+      key: 'normal',
+      label: '正常',
+      icon: <CheckCircleOutlined style={{ color: '#52c41a' }} />,
+    },
+    {
+      key: 'pending',
+      label: '待审核',
+      icon: <ClockCircleOutlined style={{ color: '#faad14' }} />,
+    },
+    {
+      key: 'hidden',
+      label: '隐藏',
+      icon: <CloseCircleOutlined style={{ color: '#ff4d4f' }} />,
+    },
+    {
+      key: 'deleted',
+      label: '删除',
+      icon: <DeleteOutlined />,
+    },
+  ];
 
   return (
     <div className={styles.container}>
@@ -115,8 +147,21 @@ export const Comment = React.memo(function Comment({ total, list, statusCounts }
                 <div>{renderStatusTag(item.status)}</div>
               </div>
               <div className={styles.content}>{item.content}</div>
-              <div className={styles.footer}>
+              <div
+                className={styles.footer}
+                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+              >
                 <span style={{ color: '#ccc', fontSize: '12px' }}>ID: {item.id}</span>
+                <Dropdown
+                  menu={{
+                    items: statusItems,
+                    onClick: ({ key }) => onModerate(item.id, key),
+                  }}
+                >
+                  <Button type="link" size="small" icon={<SafetyCertificateOutlined />}>
+                    审核 <DownOutlined />
+                  </Button>
+                </Dropdown>
               </div>
             </List.Item>
           )}

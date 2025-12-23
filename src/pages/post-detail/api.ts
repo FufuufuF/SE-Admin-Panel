@@ -25,8 +25,10 @@ export const getComments = (request: { postId: number; request?: GetCommentReque
 };
 
 export const moderateComment = (request: ModerateCommentRequest) => {
-  return apiClient.post<ApiResponse<ModerateCommentResponse>, ModerateCommentRequest['status']>(
+  return apiClient.post<ApiResponse<ModerateCommentResponse>, Partial<ModerateCommentRequest>>(
     `admin/v1/posts/${request.postId}/comments/${request.commentId}/status`,
-    request.status
+    {
+      status: request.status,
+    }
   );
 };

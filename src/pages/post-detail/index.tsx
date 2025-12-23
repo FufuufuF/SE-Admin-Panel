@@ -5,7 +5,7 @@ import { Empty, Button } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import styles from './index.module.less';
 import { useComment } from './hooks/use-comment';
-import { Comment } from './components/Comment';
+import { Comment } from './components/comment';
 import { UserInfoSection } from './components/user-info-section';
 import { PostContentCard } from './components/post-content-card';
 import { PostDetailInfo } from './components/post-detail-info';
@@ -16,7 +16,7 @@ export default function PostDetail() {
   const navigate = useNavigate();
   const { getPostById } = usePost();
   const { loading, moderatePost } = useModeratePost();
-  const { list, total, statusCounts, fetchComments } = useComment();
+  const { list, total, statusCounts, fetchComments, moderateComment } = useComment();
 
   const post = useMemo(() => {
     return getPostById(Number(id));
@@ -41,6 +41,15 @@ export default function PostDetail() {
     console.log('reject', post?.id);
     moderatePost(post!.id, 'hidden');
   }, [post?.id, moderatePost]);
+
+  const handleModerateComment = useCallback(
+    (commentId: number, status: string) => {
+      if (post?.id) {
+        moderateComment(post.id, commentId, status);
+      }
+    },
+    [post?.id, moderateComment]
+  );
 
   if (!post) {
     return (
@@ -82,7 +91,12 @@ export default function PostDetail() {
         <UserInfoSection user={post.user} status={post.status} />
         <PostContentCard text={post.text} media={post.media} tags={post.tags} stats={post.stats} />
         <PostDetailInfo post={post} />
-        <Comment list={list} total={total} statusCounts={statusCounts} />
+        <Comment
+          list={list}
+          total={total}
+          statusCounts={statusCounts}
+          onModerate={handleModerateComment}
+        />
         <ModerationActions onPass={handlePass} onReject={handleReject} loading={loading} />
       </div>
     </div>
