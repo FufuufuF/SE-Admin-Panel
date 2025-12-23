@@ -1,0 +1,202 @@
+[
+  {
+    "id": 1,
+    "nickname": "杰瑞",
+    "phone": "13800138000",
+    "role": "user",
+    "status": "normal",
+    "createdAt": "2025-12-16 13:22:00"
+  },
+  {
+    "id": 2,
+    "nickname": "汤姆",
+    "phone": "13900139000",
+    "role": "user",
+    "status": "banned",
+    "createdAt": "2025-11-10 09:00:00"
+  },
+  {
+    "id": 3,
+    "nickname": "小明",
+    "phone": "13600136000",
+    "role": "user",
+    "status": "normal",
+    "createdAt": "2025-10-01 08:12:00"
+  },
+  {
+    "id": 4,
+    "nickname": "小红",
+    "phone": "13500135000",
+    "role": "user",
+    "status": "normal",
+    "createdAt": "2025-09-21 12:00:00"
+  },
+  {
+    "id": 5,
+    "nickname": "管理员A",
+    "phone": "13100131000",
+    "role": "admin",
+    "status": "normal",
+    "createdAt": "2025-01-02 09:22:00"
+  },
+  {
+    "id": 6,
+    "nickname": "Lucy",
+    "phone": "13000130000",
+    "role": "user",
+    "status": "normal",
+    "createdAt": "2024-12-16 11:11:00"
+  },
+  {
+    "id": 7,
+    "nickname": "张三",
+    "phone": "13200132000",
+    "role": "user",
+    "status": "banned",
+    "createdAt": "2024-11-05 14:00:00"
+  },
+  {
+    "id": 8,
+    "nickname": "李四",
+    "phone": "13300133000",
+    "role": "user",
+    "status": "normal",
+    "createdAt": "2024-10-10 16:30:00"
+  },
+  {
+    "id": 9,
+    "nickname": "王五",
+    "phone": "13400134000",
+    "role": "user",
+    "status": "normal",
+    "createdAt": "2024-09-01 09:00:00"
+  },
+  {
+    "id": 10,
+    "nickname": "赵六",
+    "phone": "13700137000",
+    "role": "user",
+    "status": "normal",
+    "createdAt": "2024-08-12 10:10:00"
+  },
+  {
+    "id": 11,
+    "nickname": "用户11",
+    "phone": "13800138111",
+    "role": "user",
+    "status": "normal",
+    "createdAt": "2024-07-07 07:07:00"
+  },
+  {
+    "id": 12,
+    "nickname": "用户12",
+    "phone": "13800138112",
+    "role": "user",
+    "status": "normal",
+    "createdAt": "2024-06-06 06:06:00"
+  },
+  {
+    "id": 13,
+    "nickname": "用户13",
+    "phone": "13800138113",
+    "role": "user",
+    "status": "normal",
+    "createdAt": "2024-05-05 05:05:00"
+  },
+  {
+    "id": 14,
+    "nickname": "用户14",
+    "phone": "13800138114",
+    "role": "user",
+    "status": "normal",
+    "createdAt": "2024-04-04 04:04:00"
+  },
+  {
+    "id": 15,
+    "nickname": "用户15",
+    "phone": "13800138115",
+    "role": "user",
+    "status": "banned",
+    "createdAt": "2024-03-03 03:03:00"
+  },
+  {
+    "id": 16,
+    "nickname": "用户16",
+    "phone": "13800138116",
+    "role": "user",
+    "status": "normal",
+    "createdAt": "2024-02-02 02:02:00"
+  },
+  {
+    "id": 17,
+    "nickname": "用户17",
+    "phone": "13800138117",
+    "role": "user",
+    "status": "normal",
+    "createdAt": "2024-01-01 01:01:00"
+  },
+  {
+    "id": 18,
+    "nickname": "用户18",
+    "phone": "13800138118",
+    "role": "user",
+    "status": "normal",
+    "createdAt": "2023-12-12 12:12:00"
+  },
+  {
+    "id": 19,
+    "nickname": "用户19",
+    "phone": "13800138119",
+    "role": "user",
+    "status": "normal",
+    "createdAt": "2023-11-11 11:11:00"
+  },
+  {
+    "id": 20,
+    "nickname": "用户20",
+    "phone": "13800138120",
+    "role": "user",
+    "status": "normal",
+    "createdAt": "2023-10-10 10:10:00"
+  },
+  {
+    "id": 21,
+    "nickname": "用户21",
+    "phone": "13800138121",
+    "role": "user",
+    "status": "normal",
+    "createdAt": "2023-09-09 09:09:00"
+  },
+  {
+    "id": 22,
+    "nickname": "用户22",
+    "phone": "13800138122",
+    "role": "user",
+    "status": "normal",
+    "createdAt": "2023-08-08 08:08:00"
+  },
+  {
+    "id": 23,
+    "nickname": "用户23",
+    "phone": "13800138123",
+    "role": "user",
+    "status": "normal",
+    "createdAt": "2023-07-07 07:07:00"
+  },
+  {
+    "id": 24,
+    "nickname": "用户24",
+    "phone": "13800138124",
+    "role": "user",
+    "status": "normal",
+    "createdAt": "2023-06-06 06:06:00"
+  },
+  {
+    "id": 25,
+    "nickname": "用户25",
+    "phone": "13800138125",
+    "role": "user",
+    "status": "normal",
+    "createdAt": "2023-05-05 05:05:00"
+  }
+]
