@@ -74,9 +74,9 @@ export class ApiClient {
     this.notificationApi = api;
   }
 
-  public get<T>(apiPath: string): Promise<T> {
+  public get<T>(apiPath: string, config?: any): Promise<T> {
     // T为返回数据类型
-    return this.axios.get(apiPath);
+    return this.axios.get(apiPath, config);
   }
 
   public post<T, D>(apiPath: string, data: D | FormData): Promise<T> {
