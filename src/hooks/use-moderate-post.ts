@@ -4,7 +4,7 @@ import { type ModerateRequest } from '@/api/moderate';
 import { usePost } from '@/hooks';
 import { moderatePost as moderatePostApi } from '@/api/moderate';
 
-export function useModerate() {
+export function useModeratePost() {
   const { setPostById } = usePost();
   const [loading, setLoading] = useState(false);
 
