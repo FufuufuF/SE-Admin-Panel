@@ -122,6 +122,16 @@ const mockPosts: Post[] = [
   },
 ];
 
-export const fetchPosts = (): Promise<ApiResponse<PostResponse>> => {
-  return apiClient.get('/admin/v1/posts');
+export const fetchPosts = (
+  page?: number,
+  pageSize?: number,
+  status?: string
+): Promise<ApiResponse<PostResponse>> => {
+  return apiClient.get('/admin/v1/posts', {
+    params: {
+      status,
+      page,
+      pageSize,
+    },
+  });
 };

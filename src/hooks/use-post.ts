@@ -7,14 +7,19 @@ import { useCallback } from 'react';
 export function usePost() {
   const { posts, setPosts } = usePostStore();
 
-  const fetchPosts = useCallback(async () => {
-    try {
-      const response = await fetchPostsApi();
-      setPosts(response.data.list);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [setPosts]);
+  const fetchPosts = useCallback(
+    async (page?: number, pageSize?: number, status?: string) => {
+      try {
+        const response = await fetchPostsApi(page, pageSize, status);
+        setPosts(response.data.list);
+        return response.data;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+    [setPosts]
+  );
 
   const getPostById = useCallback(
     (id: number) => {
