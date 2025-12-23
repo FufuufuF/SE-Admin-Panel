@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { usePost, useModerate } from '@/hooks';
-import { useMemo, useCallback } from 'react';
+import { usePost, useModeratePost } from '@/hooks';
+import { useMemo, useCallback, useEffect } from 'react';
 import {
   Avatar,
   Image,
@@ -25,17 +25,26 @@ import {
 } from '@ant-design/icons';
 import { getCssVars } from '@/utils/theme-utils';
 import styles from './index.module.less';
+import { useComment } from './hooks/use-comment';
+import { Comment } from './components/comment';
 
 export default function PostDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { getPostById } = usePost();
   const { token } = theme.useToken();
-  const { loading, moderatePost } = useModerate();
+  const { loading, moderatePost } = useModeratePost();
+  const { list, total, statusCounts, isFetchLoading, fetchComments } = useComment();
 
   const post = useMemo(() => {
     return getPostById(Number(id));
   }, [getPostById, id]);
+
+  useEffect(() => {
+    if (post?.id) {
+      fetchComments(post.id);
+    }
+  }, [post?.id, fetchComments]);
 
   const cssVars = getCssVars(token);
 
@@ -206,6 +215,9 @@ export default function PostDetail() {
             <Descriptions.Item label="媒体数量">{mediaCount} 个</Descriptions.Item>
           </Descriptions>
         </Card>
+
+        {/* 评论组件 Integration */}
+        <Comment list={list} total={total} statusCounts={statusCounts} />
 
         {/* 审核操作区域 */}
         <div className={styles.actionSection}>

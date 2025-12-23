@@ -6,7 +6,7 @@ import { getCssVars } from '@/utils/theme-utils';
 
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useModerate } from '@/hooks';
+import { useModeratePost } from '@/hooks';
 
 export interface PostCardProps {
   post: Post;
@@ -15,7 +15,7 @@ export interface PostCardProps {
 export default React.memo(function PostCard({ post }: PostCardProps) {
   const { token } = theme.useToken();
   const navigate = useNavigate();
-  const { moderatePost, loading } = useModerate();
+  const { moderatePost, loading } = useModeratePost();
 
   const handlePass = useCallback(() => {
     moderatePost(post.id, 'normal');
