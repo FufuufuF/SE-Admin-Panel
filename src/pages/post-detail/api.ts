@@ -2,6 +2,7 @@ import { apiClient } from '@/api/core';
 import type { CommentData } from './components/comment/types';
 import type { ApiResponse } from '@/api/core/types';
 import type { ModerateCommentResponse } from '@/api/moderate';
+import type { Post } from '@/types';
 
 export interface GetCommentRequest {
   postId: number;
@@ -31,4 +32,9 @@ export const moderateComment = (request: ModerateCommentRequest) => {
       status: request.status,
     }
   );
+};
+
+// 获取单个帖子详情
+export const fetchPostById = (postId: number) => {
+  return apiClient.get<ApiResponse<Post>>(`admin/v1/posts/${postId}`);
 };
