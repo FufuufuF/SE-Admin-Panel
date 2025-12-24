@@ -1,0 +1,48 @@
+.actionSection {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  padding: 24px;
+  background-color: var(--bg-color);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 24px;
+  position: sticky;
+  bottom: 16px;
+  backdrop-filter: blur(12px);
+}
+
+.rejectBtn,
+.passBtn {
+  min-width: 180px;
+  height: 48px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.rejectBtn {
+  flex: 1;
+  max-width: 300px;
+}
+
+.passBtn {
+  flex: 1;
+  max-width: 300px;
+}
+
+@media (max-width: 768px) {
+  .actionSection {
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .rejectBtn,
+  .passBtn {
+    max-width: 100%;
+  }
+}

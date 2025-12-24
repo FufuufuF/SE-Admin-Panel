@@ -1,0 +1,64 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  color: #ffffff;
+}
+
+.content {
+  padding: 16px;
+}
+
+.emptyContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+// PostHeader 样式 (内联)
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+  background-color: var(--header-bg);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 16px;
+  height: 53px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.backBtn {
+  color: #ffffff;
+  font-weight: 500;
+
+  &:hover {
+    background-color: var(--hover-bg) !important;
+  }
+}
+
+.title {
+  font-weight: 700;
+  font-size: 20px;
+  color: #ffffff;
+  margin: 0;
+  flex: 1;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .container {
+    border-left: none;
+    border-right: none;
+  }
+
+  .content {
+    padding: 12px;
+  }
+}

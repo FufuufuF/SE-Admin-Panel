@@ -1,0 +1,20 @@
+# 忽略不需要格式化的文件
+node_modules
+dist
+dist-ssr
+*.local
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Build outputs
+build
+.vite
+
+# IDE
+.vscode
+.idea
+
+# Logs
+*.log
+

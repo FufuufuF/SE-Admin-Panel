@@ -1,0 +1,53 @@
+# 依赖文件
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-debug*
+lerna-debug.log*
+
+# 构建输出
+dist/
+build/
+.next/
+out/
+.nuxt/
+
+# 运行时文件
+*.log
+logs/
+
+# 环境变量
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# IDE文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 缓存文件
+.cache/
+.tmp/
+.temp/
+
+# 测试文件
+coverage/
+.nyc_output/
+
+# 其他
+*.pem
+*.p12
+*.key
+*.csr

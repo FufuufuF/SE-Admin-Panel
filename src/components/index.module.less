@@ -1,0 +1,92 @@
+.sidebar {
+  overflow: hidden; /* Prevent native scrollbar from interfering with layout */
+  height: 100vh;
+  position: fixed !important; /* Force fixed positioning */
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+}
+
+.sidebarContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: bold;
+  overflow: hidden;
+  flex-shrink: 0; /* Prevent logo from shrinking */
+}
+
+/* Override Antd menu style to take remaining space */
+:global(.ant-layout-sider-children) .ant-menu {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.collapseBtnWrapper {
+  padding: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.collapseBtn {
+  color: rgba(255, 255, 255, 0.65);
+  &:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+  }
+}
+
+.header {
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  height: 64px;
+  width: 100%;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+}
+
+.headerLeft {
+  font-size: 16px;
+  width: 64px;
+  height: 64px;
+}
+
+.headerRight {
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.avatar {
+  background-color: #87d068;
+}
+
+.content {
+  padding: 24px;
+  /* Ensure content doesn't go under header */
+  margin-top: 0;
+}
+
+.contentContainer {
+  padding: 24px;
+  min-height: 360px;
+  height: 100%;
+}
