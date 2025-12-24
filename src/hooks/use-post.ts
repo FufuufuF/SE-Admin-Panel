@@ -3,10 +3,11 @@ import { fetchPosts as fetchPostsApi } from '@/pages/moderate/api';
 import { fetchPostById as fetchPostByIdApi } from '@/pages/post-detail/api';
 import type { Post } from '@/types';
 
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 export function usePost() {
-  const { posts, setPosts, appendPosts, addOrUpdatePost } = usePostStore();
+  const { posts, filters, setPosts, appendPosts, addOrUpdatePost, setFilters, resetFilters } =
+    usePostStore();
 
   // 获取帖子列表（覆盖模式，用于初始加载或筛选条件变化时）
   const fetchPosts = useCallback(
@@ -42,6 +43,33 @@ export function usePost() {
   const clearPosts = useCallback(() => {
     setPosts([]);
   }, [setPosts]);
+
+  // 业务逻辑：根据筛选条件过滤帖子
+  const filteredPosts = useMemo(() => {
+    return posts.filter((post) => {
+      // 关键词筛选（搜索帖子内容）
+      if (filters.keyword && !post.text.toLowerCase().includes(filters.keyword.toLowerCase())) {
+        return false;
+      }
+      // 用户筛选（搜索用户昵称）
+      if (filters.user && !post.user.nickname.toLowerCase().includes(filters.user.toLowerCase())) {
+        return false;
+      }
+      // 审核状态筛选
+      if (filters.auditStatus !== 'all') {
+        const isPending = post.status === 'pending';
+        if (filters.auditStatus === 'pending' && !isPending) return false;
+        if (filters.auditStatus === 'reviewed' && isPending) return false;
+      }
+      // 审核结果筛选（仅当审核状态为 reviewed 时生效）
+      if (filters.resultStatus !== 'all' && filters.auditStatus !== 'pending') {
+        const isPass = post.status === 'normal';
+        if (filters.resultStatus === 'pass' && !isPass) return false;
+        if (filters.resultStatus === 'fail' && isPass) return false;
+      }
+      return true;
+    });
+  }, [posts, filters]);
 
   // 从 store 中获取帖子
   const getPostById = useCallback(
@@ -80,6 +108,10 @@ export function usePost() {
 
   return {
     posts,
+    filteredPosts,
+    filters,
+    setFilters,
+    resetFilters,
     fetchPosts,
     fetchMorePosts,
     clearPosts,

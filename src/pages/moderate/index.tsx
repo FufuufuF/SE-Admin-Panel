@@ -8,13 +8,14 @@ import { InfiniteScrollList } from '@/components/infinite-scroll-list';
 import { getCssVars } from '@/utils/theme-utils';
 
 export default function Moderate() {
-  const { posts, fetchMorePosts, clearPosts } = usePost();
+  const { filteredPosts, fetchMorePosts, clearPosts, resetFilters } = usePost();
   const { token } = theme.useToken();
 
   // 组件挂载时清空之前的帖子，确保干净的分页状态
   useEffect(() => {
     clearPosts();
-  }, [clearPosts]);
+    resetFilters();
+  }, [clearPosts, resetFilters]);
 
   const loadList = useCallback(
     async (page: number, pageSize: number, status?: string) => {
@@ -41,7 +42,7 @@ export default function Moderate() {
         loadingComponent={<div style={{ textAlign: 'center', padding: 10 }}>加载中...</div>}
         endComponent={<div style={{ textAlign: 'center', padding: 10 }}>没有更多了</div>}
         emptyComponent={<div style={{ textAlign: 'center', padding: 10 }}>暂无数据</div>}
-        items={posts}
+        items={filteredPosts}
       />
     </div>
   );

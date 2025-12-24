@@ -253,11 +253,15 @@
 
 .filterForm {
   width: 100%;
-
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  
   :global {
     .ant-form-item {
-      margin-bottom: 8px;
+      margin-bottom: 0;
       margin-right: 12px;
+      flex-shrink: 0;
     }
   }
 }

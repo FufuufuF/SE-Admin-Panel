@@ -1,21 +1,18 @@
-import { Input, Select, Form, theme } from 'antd';
-import { SearchOutlined, UserOutlined } from '@ant-design/icons';
+import { Input, Select, Form, Button, theme } from 'antd';
+import { SearchOutlined, UserOutlined, FilterOutlined } from '@ant-design/icons';
 import styles from './index.module.less';
 import { getCssVars } from '@/utils/theme-utils';
-
-interface FilterValues {
-  keyword: string;
-  user: string;
-  auditStatus: string;
-  resultStatus: string;
-}
+import { usePost } from '@/hooks';
+import { type FilterValues } from '@/store/post-store';
 
 export default function ModerateHeader() {
   const { token } = theme.useToken();
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<FilterValues>();
+  const { setFilters } = usePost();
 
-  const handleValuesChange = (_: unknown, allValues: FilterValues) => {
-    console.log('Filter values:', allValues);
+  const handleApplyFilter = () => {
+    const values = form.getFieldsValue();
+    setFilters(values);
   };
 
   const cssVars = getCssVars(token);
@@ -32,7 +29,6 @@ export default function ModerateHeader() {
         form={form}
         layout="inline"
         className={styles.filterForm}
-        onValuesChange={handleValuesChange}
         initialValues={{
           keyword: '',
           user: '',
@@ -90,6 +86,12 @@ export default function ModerateHeader() {
               />
             );
           }}
+        </Form.Item>
+
+        <Form.Item>
+          <Button type="primary" icon={<FilterOutlined />} onClick={handleApplyFilter}>
+            筛选
+          </Button>
         </Form.Item>
       </Form>
     </div>
