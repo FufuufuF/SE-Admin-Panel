@@ -6,8 +6,9 @@ import type { Post } from '@/types';
 import { useCallback } from 'react';
 
 export function usePost() {
-  const { posts, setPosts, addOrUpdatePost } = usePostStore();
+  const { posts, setPosts, appendPosts, addOrUpdatePost } = usePostStore();
 
+  // 获取帖子列表（覆盖模式，用于初始加载或筛选条件变化时）
   const fetchPosts = useCallback(
     async (page?: number, pageSize?: number, status?: string) => {
       try {
@@ -21,6 +22,26 @@ export function usePost() {
     },
     [setPosts]
   );
+
+  // 获取更多帖子（追加模式，用于分页加载）
+  const fetchMorePosts = useCallback(
+    async (page?: number, pageSize?: number, status?: string) => {
+      try {
+        const response = await fetchPostsApi(page, pageSize, status);
+        appendPosts(response.data.list);
+        return response.data;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+    [appendPosts]
+  );
+
+  // 清空帖子列表
+  const clearPosts = useCallback(() => {
+    setPosts([]);
+  }, [setPosts]);
 
   // 从 store 中获取帖子
   const getPostById = useCallback(
@@ -54,12 +75,14 @@ export function usePost() {
       });
       setPosts(nowPosts);
     },
-    [posts]
+    [posts, setPosts]
   );
 
   return {
     posts,
     fetchPosts,
+    fetchMorePosts,
+    clearPosts,
     getPostById,
     fetchPostById,
     setPostById,

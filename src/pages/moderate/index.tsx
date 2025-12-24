@@ -8,20 +8,26 @@ import { InfiniteScrollList } from '@/components/infinite-scroll-list';
 import { getCssVars } from '@/utils/theme-utils';
 
 export default function Moderate() {
-  const { posts, fetchPosts } = usePost();
+  const { posts, fetchMorePosts, clearPosts } = usePost();
   const { token } = theme.useToken();
+
+  // 组件挂载时清空之前的帖子，确保干净的分页状态
+  useEffect(() => {
+    clearPosts();
+  }, [clearPosts]);
 
   const loadList = useCallback(
     async (page: number, pageSize: number, status?: string) => {
       try {
-        const result = await fetchPosts(page, pageSize, status);
+        // 使用 fetchMorePosts 进行增量加载
+        const result = await fetchMorePosts(page, pageSize, status);
         return result || { list: [], total: 0 };
       } catch (error) {
         console.error(error);
         return { list: [], total: 0 };
       }
     },
-    [fetchPosts]
+    [fetchMorePosts]
   );
 
   const cssVars = getCssVars(token);
