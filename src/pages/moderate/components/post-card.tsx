@@ -35,12 +35,6 @@ export default React.memo(function PostCard({ post }: PostCardProps) {
 
   const mediaCount = post.media?.length || 0;
 
-  // Simple grid layout logic for preview
-  const getGridStyle = () => {
-    if (mediaCount === 1) return { gridTemplateColumns: '1fr' };
-    return { gridTemplateColumns: '1fr 1fr' };
-  };
-
   const renderStatus = () => {
     const status = post.status || 'pending'; // Default to pending if not set
 
@@ -91,36 +85,45 @@ export default React.memo(function PostCard({ post }: PostCardProps) {
         <div className={styles.text}>{post.text}</div>
 
         {mediaCount > 0 && (
-          <div className={styles.mediaGrid} style={getGridStyle()}>
+          <div className={styles.mediaGrid}>
             <Image.PreviewGroup>
-              {post.media.map((m, index) => (
-                <div
-                  key={index}
-                  style={{
-                    position: 'relative',
-                    width: '100%',
-                    paddingBottom: mediaCount === 1 ? '0' : '100%',
-                    height: mediaCount === 1 ? 'auto' : 0,
-                  }}
-                >
-                  <Image
-                    src={m.url}
-                    className={styles.mediaItem}
-                    wrapperStyle={{
-                      position: mediaCount === 1 ? 'static' : 'absolute',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: '100%',
-                      display: 'block',
-                    }}
-                    style={{
-                      height: mediaCount === 1 ? 'auto' : '100%',
-                      width: '100%',
-                      objectFit: 'cover',
-                    }}
-                  />
-                </div>
+              {post.media.slice(0, 3).map((m, index) => {
+                const isLast = index === 2;
+                const remaining = mediaCount - 3;
+                const showOverlay = isLast && remaining > 0;
+
+                return (
+                  <div key={index} className={styles.mediaItemWrapper}>
+                    <Image
+                      src={m.url}
+                      className={styles.mediaItem}
+                      rootClassName={styles.mediaItem}
+                      preview={{ visible: false }}
+                      onClick={() => {
+                        // Handle click to open preview?
+                        // Antd Image component handles preview by default if inside PreviewGroup.
+                        // But with overlay we might need to be careful.
+                        // Actually standard behavior works fine, just visually we cover it.
+                      }}
+                    />
+                    {showOverlay && (
+                      <div
+                        className={styles.moreOverlay}
+                        onClick={() => {
+                          // Propagate click to image or handle preview open
+                          // To trigger preview of the clicked image, we rely on the implementation.
+                          // However, if strict control is needed, we rely on Antd Image.
+                        }}
+                      >
+                        +{remaining}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+              {/* Hidden images for preview group */}
+              {post.media.slice(3).map((m, index) => (
+                <Image key={`hidden-${index}`} src={m.url} style={{ display: 'none' }} />
               ))}
             </Image.PreviewGroup>
           </div>
