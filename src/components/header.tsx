@@ -1,11 +1,5 @@
 import { Layout, Button, Avatar, Space, Dropdown, theme, Badge } from 'antd';
-import {
-  UserOutlined,
-  BellOutlined,
-  SettingOutlined,
-  LogoutOutlined,
-  QuestionCircleOutlined,
-} from '@ant-design/icons';
+import { UserOutlined, LogoutOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import styles from './index.module.less';
 
@@ -16,26 +10,19 @@ export default function Header() {
     token: { colorBgContainer },
   } = theme.useToken();
 
+  const handleLogout = () => {
+    localStorage.removeItem('access_token');
+    window.location.replace('/login');
+  };
+
   // 下拉菜单项
   const items: MenuProps['items'] = [
-    {
-      key: '1',
-      label: '个人中心',
-      icon: <UserOutlined />,
-    },
-    {
-      key: '2',
-      label: '系统设置',
-      icon: <SettingOutlined />,
-    },
-    {
-      type: 'divider',
-    },
     {
       key: '3',
       label: '退出登录',
       icon: <LogoutOutlined />,
       danger: true,
+      onClick: handleLogout,
     },
   ];
 
@@ -48,11 +35,6 @@ export default function Header() {
       <Space size="middle">
         {/* 1. 帮助文档 */}
         <Button type="text" icon={<QuestionCircleOutlined />} style={{ fontSize: '16px' }} />
-
-        {/* 2. 消息通知 */}
-        <Badge count={5} size="small">
-          <Button type="text" icon={<BellOutlined />} style={{ fontSize: '16px' }} />
-        </Badge>
 
         {/* 3. 用户头像下拉 */}
         <Dropdown menu={{ items }}>
