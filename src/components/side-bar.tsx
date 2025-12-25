@@ -23,17 +23,6 @@ const menuItems = [
     label: '动态内容管理',
     icon: <FileOutlined />,
   },
-  {
-    key: '/settings',
-    label: '敏感词设置',
-    icon: <SettingOutlined />,
-    children: [
-      {
-        key: '/settings/sensitive',
-        label: '敏感词设置',
-      },
-    ],
-  },
 ];
 
 interface SideBarProps {
