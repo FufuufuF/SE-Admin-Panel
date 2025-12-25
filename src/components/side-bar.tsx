@@ -1,5 +1,5 @@
 import { Layout, Menu } from 'antd';
-import { FileOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import { FileOutlined, UserOutlined } from '@ant-design/icons';
 import { DashboardOutlined } from '@ant-design/icons';
 import { useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';

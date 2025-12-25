@@ -1,4 +1,4 @@
-import { Layout, Button, Avatar, Space, Dropdown, theme, Badge } from 'antd';
+import { Layout, Button, Avatar, Space, Dropdown, theme } from 'antd';
 import { UserOutlined, LogoutOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import styles from './index.module.less';
