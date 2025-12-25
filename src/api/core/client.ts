@@ -31,6 +31,12 @@ export class ApiClient {
           message: '请求错误',
           description: response.data.msg || '未知错误',
         });
+        if (response.data.code === 10002) {
+          setTimeout(() => {
+            localStorage.removeItem('access_token');
+            window.location.replace('/login');
+          }, 1000);
+        }
         return Promise.reject(response.data.msg);
       }
     };
