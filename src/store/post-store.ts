@@ -5,7 +5,7 @@ import { type Post } from '@/types';
 export interface FilterValues {
   keyword: string;
   user: string;
-  auditStatus: 'all' | 'pending' | 'reviewed';
+  auditStatus: 'all' | 'pending' | 'reviewed' | 'pass' | 'fail';
   resultStatus: 'all' | 'pass' | 'fail';
 }
 

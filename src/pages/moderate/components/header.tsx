@@ -59,6 +59,8 @@ export default function ModerateHeader() {
               { label: '全部状态', value: 'all' },
               { label: '待审核', value: 'pending' },
               { label: '已审核', value: 'reviewed' },
+              { label: '已通过', value: 'pass' },
+              { label: '未通过', value: 'fail' },
             ]}
           />
         </Form.Item>

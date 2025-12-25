@@ -58,8 +58,13 @@ export function usePost() {
       // 审核状态筛选
       if (filters.auditStatus !== 'all') {
         const isPending = post.status === 'pending';
+        const isPass = post.status === 'normal';
+        const isFail = post.status === 'hidden';
+
         if (filters.auditStatus === 'pending' && !isPending) return false;
         if (filters.auditStatus === 'reviewed' && isPending) return false;
+        if (filters.auditStatus === 'pass' && !isPass) return false;
+        if (filters.auditStatus === 'fail' && !isFail) return false;
       }
       // 审核结果筛选（仅当审核状态为 reviewed 时生效）
       if (filters.resultStatus !== 'all' && filters.auditStatus !== 'pending') {
