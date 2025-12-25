@@ -1,5 +1,6 @@
 import axios, { type AxiosInstance, type AxiosResponse, type AxiosError } from 'axios';
 import type { NotificationInstance } from 'antd/es/notification/interface';
+
 import { API_CONFIG } from './config';
 
 export class ApiClient {
@@ -53,6 +54,11 @@ export class ApiClient {
           'Notification API not injected yet! this.notificationApi is:',
           this.notificationApi
         );
+      }
+
+      if (status === 401) {
+        localStorage.removeItem('access_token');
+        window.location.replace('/login');
       }
 
       return Promise.reject(error);

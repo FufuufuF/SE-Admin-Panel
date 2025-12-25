@@ -17,8 +17,6 @@ export interface ModerateCommentResponse {
   update: boolean;
 }
 
-const IS_MOCK = true;
-
 export const moderatePost = (request: {
   postId: number;
   request: ModerateRequest;
