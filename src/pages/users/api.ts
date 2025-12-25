@@ -27,11 +27,7 @@ export interface ChangeUserStatusResponse {
 }
 
 // 获取用户列表
-export const getUsers = (params?: {
-  page?: number;
-  pageSize?: number;
-  keyword?: string;
-}) => {
+export const getUsers = (params?: { page?: number; pageSize?: number; keyword?: string }) => {
   return apiClient.get<ApiResponse<UserListResponse>>('/admin/v1/users', {
     params,
   });
@@ -39,8 +35,5 @@ export const getUsers = (params?: {
 
 // 修改用户状态
 export const changeUserStatus = (userId: number, request: ChangeUserStatusRequest) => {
-  return apiClient.post<ApiResponse<ChangeUserStatusResponse>>(
-    `/admin/v1/users/${userId}/status`,
-    request
-  );
+  return apiClient.post(`/admin/v1/users/${userId}/status`, request);
 };

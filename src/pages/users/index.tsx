@@ -1,7 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Table, Tag, Space, Button, Input, message, Spin, Modal, Form, Select } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { SearchOutlined, PlusOutlined, DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import {
+  SearchOutlined,
+  PlusOutlined,
+  DeleteOutlined,
+  ExclamationCircleOutlined,
+} from '@ant-design/icons';
 import { getUsers, type User } from './api';
 
 export default function Users() {
@@ -26,6 +31,7 @@ export default function Users() {
       console.log('API响应:', response);
       setAllUsers(response.data.list);
       setTotal(response.data.total);
+      console.log('total', total);
     } catch (error) {
       console.error('加载用户列表失败:', error);
       message.error('加载用户列表失败');
@@ -35,29 +41,36 @@ export default function Users() {
   }, []);
 
   // 前端过滤用户数据
-  const filterUsers = useCallback((keyword: string) => {
-    if (!keyword.trim()) {
-      setFilteredUsers(allUsers);
-    } else {
-      const filtered = allUsers.filter(user =>
-        user.username.toLowerCase().includes(keyword.toLowerCase()) ||
-        user.nickname.toLowerCase().includes(keyword.toLowerCase())
-      );
-      setFilteredUsers(filtered);
-    }
-    setCurrentPage(1); // 搜索时重置到第一页
-  }, [allUsers]);
+  const filterUsers = useCallback(
+    (keyword: string) => {
+      if (!keyword.trim()) {
+        setFilteredUsers(allUsers);
+      } else {
+        const filtered = allUsers.filter(
+          (user) =>
+            user.username.toLowerCase().includes(keyword.toLowerCase()) ||
+            user.nickname.toLowerCase().includes(keyword.toLowerCase())
+        );
+        setFilteredUsers(filtered);
+      }
+      setCurrentPage(1); // 搜索时重置到第一页
+    },
+    [allUsers]
+  );
 
   // 加载用户数据（分页显示）
-  const loadUsers = useCallback(async (page = 1, keyword = '') => {
-    // 如果还没有加载过所有数据，先加载
-    if (allUsers.length === 0) {
-      await loadAllUsers();
-    }
-    // 应用过滤
-    filterUsers(keyword);
-    setCurrentPage(page);
-  }, [allUsers.length, loadAllUsers, filterUsers]);
+  //   const loadUsers = useCallback(
+  //     async (page = 1, keyword = '') => {
+  //       // 如果还没有加载过所有数据，先加载
+  //       if (allUsers.length === 0) {
+  //         await loadAllUsers();
+  //       }
+  //       // 应用过滤
+  //       filterUsers(keyword);
+  //       setCurrentPage(page);
+  //     },
+  //     [allUsers.length, loadAllUsers, filterUsers]
+  //   );
 
   // 搜索用户
   const handleSearch = useCallback(() => {
@@ -69,10 +82,8 @@ export default function Users() {
   // 修改用户状态（前端模拟）
   const handleChangeStatus = useCallback((user: User, newStatus: 'active' | 'banned') => {
     // 直接更新本地状态，不调用后端API
-    setAllUsers(prevUsers =>
-      prevUsers.map(u =>
-        u.id === user.id ? { ...u, status: newStatus } : u
-      )
+    setAllUsers((prevUsers) =>
+      prevUsers.map((u) => (u.id === user.id ? { ...u, status: newStatus } : u))
     );
     message.success(`用户 ${user.nickname} 已${newStatus === 'banned' ? '封禁' : '解禁'}`);
   }, []);
@@ -88,36 +99,39 @@ export default function Users() {
       okType: 'danger',
       onOk() {
         // 从allUsers中移除用户
-        setAllUsers(prevUsers => prevUsers.filter(u => u.id !== user.id));
+        setAllUsers((prevUsers) => prevUsers.filter((u) => u.id !== user.id));
         message.success(`用户 "${user.nickname}" 已删除`);
       },
     });
   }, []);
 
   // 新增用户（前端模拟）
-  const handleAddUser = useCallback(async (values: any) => {
-    try {
-      // 生成新用户ID（简单的方式）
-      const newId = Math.max(...allUsers.map(u => u.id), 0) + 1;
+  const handleAddUser = useCallback(
+    async (values: any) => {
+      try {
+        // 生成新用户ID（简单的方式）
+        const newId = Math.max(...allUsers.map((u) => u.id), 0) + 1;
 
-      const newUser: User = {
-        id: newId,
-        username: values.username,
-        nickname: values.nickname,
-        status: values.status,
-        createdAt: new Date().toLocaleString(),
-      };
+        const newUser: User = {
+          id: newId,
+          username: values.username,
+          nickname: values.nickname,
+          status: values.status,
+          createdAt: new Date().toLocaleString(),
+        };
 
-      // 添加到用户列表
-      setAllUsers(prevUsers => [...prevUsers, newUser]);
-      setIsAddModalVisible(false);
-      addForm.resetFields();
-      message.success('用户添加成功');
-    } catch (error) {
-      console.error('添加用户失败:', error);
-      message.error('添加用户失败');
-    }
-  }, [allUsers, addForm]);
+        // 添加到用户列表
+        setAllUsers((prevUsers) => [...prevUsers, newUser]);
+        setIsAddModalVisible(false);
+        addForm.resetFields();
+        message.success('用户添加成功');
+      } catch (error) {
+        console.error('添加用户失败:', error);
+        message.error('添加用户失败');
+      }
+    },
+    [allUsers, addForm]
+  );
 
   // 组件挂载时加载数据
   useEffect(() => {
@@ -130,10 +144,7 @@ export default function Users() {
   }, [allUsers]);
 
   // 计算当前页显示的数据
-  const currentPageData = filteredUsers.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize
-  );
+  const currentPageData = filteredUsers.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   // 3. 定义表格列
   const columns: ColumnsType<User> = [
@@ -235,8 +246,7 @@ export default function Users() {
               setCurrentPage(page);
             },
             showSizeChanger: false,
-            showTotal: (total, range) =>
-              `第 ${range[0]}-${range[1]} 条，共 ${total} 条`,
+            showTotal: (total, range) => `第 ${range[0]}-${range[1]} 条，共 ${total} 条`,
           }}
         />
       </Spin>
@@ -274,11 +284,7 @@ export default function Users() {
             <Input placeholder="请输入昵称" />
           </Form.Item>
 
-          <Form.Item
-            label="状态"
-            name="status"
-            rules={[{ required: true, message: '请选择状态' }]}
-          >
+          <Form.Item label="状态" name="status" rules={[{ required: true, message: '请选择状态' }]}>
             <Select placeholder="请选择状态">
               <Select.Option value="active">正常</Select.Option>
               <Select.Option value="banned">已封禁</Select.Option>
@@ -287,10 +293,12 @@ export default function Users() {
 
           <Form.Item style={{ marginBottom: 0, textAlign: 'right' }}>
             <Space>
-              <Button onClick={() => {
-                setIsAddModalVisible(false);
-                addForm.resetFields();
-              }}>
+              <Button
+                onClick={() => {
+                  setIsAddModalVisible(false);
+                  addForm.resetFields();
+                }}
+              >
                 取消
               </Button>
               <Button type="primary" htmlType="submit">
