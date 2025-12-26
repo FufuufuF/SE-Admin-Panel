@@ -12,10 +12,15 @@ export default defineConfig({
   },
   server: {
     proxy: {
+      '/xxx': {
+        target: 'http://172.31.68.19:8080',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/xxx/, ''),
+      },
+      // 添加这个代理规则
       '/api': {
         target: 'http://172.31.68.19:8080',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },
