@@ -70,10 +70,10 @@
   color: var(--text-color);
   font-size: 15px;
   line-height: 20px;
-  
+
   /* Logix for limiting lines */
   display: -webkit-box;
-  -webkit-line-clamp: 8; 
+  -webkit-line-clamp: 8;
   line-clamp: 8;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -85,17 +85,20 @@
   overflow: hidden;
   border: 1px solid var(--border-color);
   display: flex;
-  height: 220px; /* Adjusted height for 3 images ratio */
   gap: 2px;
 }
 
 .mediaItemWrapper {
   flex: 1;
-  height: 100%;
   position: relative;
   min-width: 0;
   cursor: pointer;
-  
+  aspect-ratio: 1 / 1; /* 确保每个媒体项为正方形 */
+  background-color: #000; /* 黑边填充背景 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   &:hover {
     .mediaItem {
       opacity: 0.9;
@@ -106,9 +109,27 @@
 .mediaItem {
   width: 100%;
   height: 100%;
-  object-fit: cover;
   transition: opacity 0.2s;
-  display: block; /* Eliminate inline spacing */
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+
+  :global {
+    .ant-image {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ant-image-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+  }
 }
 
 .moreOverlay {
@@ -256,7 +277,7 @@
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  
+
   :global {
     .ant-form-item {
       margin-bottom: 0;
